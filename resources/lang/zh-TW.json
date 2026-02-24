@@ -1,0 +1,7 @@
+{
+    "validation.password.letters": ":attribute必須包含英文字母",
+    "validation.password.mixed": ":attribute必須包含最少一個大寫與小寫英文字母",
+    "validation.password.numbers": ":attribute必須包含最少一個數字",
+    "validation.password.symbols": ":attribute必須包含最少一個符號",
+    "validation.password.uncompromised": ":attribute已存在外洩密碼清單中，不可使用"
+}

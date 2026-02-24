@@ -1,0 +1,1 @@
+{{ $imageDatum->user->name }}

@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+class CreateDcUsersTable extends Migration
+{
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('dc_users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('username');
+            $table->string('password', 60);
+            $table->integer('dc_unit_id')->unsigned()->default(0);
+            $table->string('remember_token', 100)->nullable();
+            $table->timestamps();
+            $table->boolean('active')->default(1);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('dc_users');
+    }
+}

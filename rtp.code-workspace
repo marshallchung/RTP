@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../NFA-RTP"
+		},
+		{
+			"path": "../registeraroma"
+		},
+		{
+			"path": "../holdfresh"
+		}
+	],
+	"settings": {}
+}

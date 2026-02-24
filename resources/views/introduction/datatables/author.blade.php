@@ -1,0 +1,1 @@
+{{ $introduction->author->name }}

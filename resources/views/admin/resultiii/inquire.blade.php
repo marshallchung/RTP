@@ -1,0 +1,66 @@
+@extends('admin.layouts.dashboard', [
+'heading' => '管理與查詢功能',
+'breadcrumbs' => [
+'成果資料（三期）',
+'管理與查詢功能'
+]
+])
+
+@section('title', '管理與查詢功能')
+
+@section('inner_content')
+<div class="col-sm-12 p-0">
+    <div class="flex flex-row flex-wrap">
+        {!! Form::open(['method'=>'get', 'class' => 'flex flex-row flex-wrap text-center']) !!}
+        {!! Form::select('county_id', $counties, request('county_id'), ['class' => 'h-12 px-4 border-gray-300 rounded-md
+        shadow-sm focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 w-full']) !!}
+        {!! Form::select('category_id', $categories, request('category_id'), ['class' => 'h-12 px-4 border-gray-300
+        rounded-md shadow-sm focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 w-full']) !!}
+        <button type="submit" class=" flex items-center justify-center w-20 h-10 bg-mainCyanDark text-white">搜尋</button>
+        <a id="btnDownloadXlsx"
+            class="flex items-center justify-center w-20 h-10 bg-gray-100 border border-gray-300 text-mainAdminTextGrayDark cursor-pointer hover:bg-gray-50 ">匯出表單</a>
+        {!! Form::close() !!}
+    </div>
+    <div style="overflow: auto">
+        <table class="w-full bg-white border shadow-lg text-mainAdminTextGrayDark">
+            <thead>
+                <tr>
+                    <th class="p-2 font-normal text-left border-r last:border-r-0">Topic</th>
+                    @foreach ($users as $user)
+                    <th class="p-2 font-normal text-left border-r last:border-r-0">{{ $user->name }}</th>
+                    @endforeach
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($topics as $topic)
+                <tr>
+                    <td class="p-2 border-r last:border-r-0">
+                        <span class="text-nowrap">{{ $topic->title }}</span>
+                    </td>
+                    @foreach ($users as $user)
+                    <td class="p-2 border-r last:border-r-0">
+                        @if(isset($data[$topic->id][$user->id]) && $data[$topic->id][$user->id]>0)
+                        <i class="fa fa-check-circle text-success text-lg"></i>
+                        @endif
+                    </td>
+                    @endforeach
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+    $(function () {
+            $('#btnDownloadXlsx').click(function () {
+                let county_id = $('select[name=county_id]').val();
+                let category_id = $('select[name=category_id]').val();
+                window.location = "{{ route('admin.resultiii.downloadXlsx') }}?county_id=" + county_id + "&category_id=" + category_id;
+            });
+        });
+</script>
+
+@endsection

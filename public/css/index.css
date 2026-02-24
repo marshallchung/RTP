@@ -1,0 +1,49 @@
+
+     .jumbotron {
+        word-break: break-all;
+        margin-bottom: 0;
+        border-radius: 20px;
+        padding-top: 48px;
+        padding-bottom: 48px;
+        font-family: 'Noto Sans TC', Microsoft JhengHei, serif;
+        background: url("{{ asset('image/signin-bg-1.jpg') }}");
+    }
+
+    .carousel-item img{
+
+    }
+
+    .carousel-caption {
+        z-index: 120;
+        color: #fff;
+        top: 73%;
+    }
+
+    .carousel-caption h1 {
+        font-size: 3.4vw;
+        letter-spacing: 0.1em;
+    }
+
+    .carousel-caption p{
+        font-size: 1.47vw;
+        letter-spacing: 0.05em;
+        color: rgb(255, 255, 255);
+        margin-top: 4%;
+        font-weight: lighter;
+    }
+
+    /* 改左右按鈕未完成
+    .carousel-control-prev {
+        width:auto;
+    }
+
+    .carousel-control-prev-icon {
+        background: #ed564b ;
+        width: 4vw;
+        height: 8vw;
+    }*/
+
+    #app {
+        min-height: 0;
+        padding-top: 0;
+    }

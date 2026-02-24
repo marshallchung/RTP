@@ -1,0 +1,1 @@
+DpStudent::whereNotNull('email')->where('id', '>', 1730)->where('id', '<', 1734)->each(function($s){Mail::send('admin.email.dp-student-notification-20221114', [], function($m)use($s){$m->to($s->email)->subject('【內政部消防署】問卷調查');});})
