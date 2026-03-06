@@ -27,43 +27,9 @@ use App\Http\Controllers\DcController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ResultIIIController;
 use App\Http\Controllers\DpTeacherController;
-use App\User;
-use App\UserAlias;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use Rutorika\Sortable\SortableController;
 use App\Http\Controllers\Admin\Auth\Login2FAController;
-
-// 僅供本機開發測試：免帳密/免2FA快速登入
-if (app()->environment('local') && config('app.dev_auto_login')) {
-    Route::prefix('__dev')->group(function () {
-        Route::get('/login/admin/{id}', function (int $id) {
-            $user = User::findOrFail($id);
-            Auth::guard('web')->login($user);
-            session(['origin_identity' => null]);
-
-            return redirect('/admin');
-        })->name('dev.login.admin');
-
-        Route::get('/login/alias/{username}', function (string $username) {
-            $alias = UserAlias::where('username', $username)->firstOrFail();
-            abort_if(!$alias->user, 404, 'Alias user not found');
-
-            Auth::guard('web')->login($alias->user);
-            session(['origin_identity' => null]);
-
-            return redirect('/admin');
-        })->name('dev.login.alias');
-
-        Route::get('/logout', function () {
-            Auth::guard('web')->logout();
-            request()->session()->invalidate();
-            request()->session()->regenerateToken();
-
-            return redirect('/');
-        })->name('dev.logout');
-    });
-}
 
 //首頁
 Route::get('/', [HomeController::class, 'index'])->name('index');

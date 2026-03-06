@@ -39,8 +39,8 @@
         <table class="w-full bg-white border shadow-lg text-mainAdminTextGrayDark min-w-[72rem]">
             <thead>
                 <tr class="text-white border-b rounded-t bg-mainGrayDark">
+		       <th class="w-1/4 p-2 font-bold border-r last:border-r-0">課程名稱</th>
                     <th class="w-1/4 p-2 font-bold border-r last:border-r-0">主辦單位</th>
-                    <th class="w-1/4 p-2 font-bold border-r last:border-r-0">課程名稱</th>
                     <th class="p-2 font-bold border-r last:border-r-0">連絡電話</th>
                     <th class="p-2 font-bold border-r last:border-r-0">E-mail</th>
                     <th class="p-2 font-bold border-r last:border-r-0">開課日期</th>
@@ -49,13 +49,14 @@
             <tbody>
                 @foreach ($data as $item)
                 <tr class="bg-white border-b odd:bg-gray-100 last:border-b-0 last:rounded-b">
+		        <td class="p-2 text-center border-r last:border-r-0">{!! Html::linkroute('dp.courseShow',
+                        $item->name, $item->id) !!}</td>
                     <td class="p-2 text-center border-r last:border-r-0">
                         {{
                         $item->organizer=='消防署'?'內政部消防署':(preg_match('/(市|縣)$/',$item->organizer)?$item->organizer.'政府':$item->organizer)
                         }}
                     </td>
-                    <td class="p-2 text-center border-r last:border-r-0">{!! Html::linkroute('dp.courseShow',
-                        $item->name, $item->id) !!}</td>
+                    
                     <td class="p-2 text-center border-r last:border-r-0">{{ $item->phone }}</td>
                     <td class="p-2 text-center border-r last:border-r-0">{{ $item->email }}</td>
                     <td class="p-2 text-center border-r last:border-r-0">

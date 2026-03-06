@@ -1,0 +1,23 @@
+{
+    "name": "michaelachrisco/readonly",
+    "description": "Readonly Models for Laravel 5+",
+    "authors": [
+        {
+            "name": "Michael Chrisco",
+            "email": "michaelachrisco@gmail.com"
+        }
+    ],
+    "keywords": ["laravel", "eloquent", "read-only"],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {"MichaelAChrisco\\ReadOnly\\": "src/"}
+    },
+    "require": {
+      "php": ">=7.0.0"
+    },
+    "require-dev": {
+        "kahlan/kahlan": "^2.4",
+        "illuminate/database": "=8.83.23"
+    }
+}

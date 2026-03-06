@@ -38,7 +38,7 @@ class DpStudentExport implements FromCollection, WithEvents, ShouldAutoSize, Wit
         $rows = collect();
         //標題列
         $titleRow = [
-            '上線',
+	    '上線',
             '證書編號',
             '姓名',
             '培訓計畫名稱',
@@ -68,7 +68,6 @@ class DpStudentExport implements FromCollection, WithEvents, ShouldAutoSize, Wit
         foreach ($dpSubjects as $idx => $dpSubject) {
             $titleRow[] = $dpSubject->name;
         }
-        $titleRow[] = '地址識別碼';
         $rows->add($titleRow);
 
         $this->data->load('dpStudentSubjects');
@@ -81,7 +80,7 @@ class DpStudentExport implements FromCollection, WithEvents, ShouldAutoSize, Wit
                 $birth = (object) $empty_date;
             }
             $row = [
-                $item->active,
+		$item->active,
                 $item->certificate,
                 $item->name,
                 $item->plan,
@@ -112,7 +111,6 @@ class DpStudentExport implements FromCollection, WithEvents, ShouldAutoSize, Wit
                     ->where('dp_subject_id', $dpSubject->id)->first();
                 $row[] = $dpStudentSubject ? '●' : null;
             }
-            $row[] = $item->addressId;
             $rows->add($row);
         }
 

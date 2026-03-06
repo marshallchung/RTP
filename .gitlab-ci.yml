@@ -1,0 +1,12 @@
+build:
+  stage: build
+  script:
+    - echo build
+
+test:
+  stage: test
+  # 補上 needs:
+  needs:
+    - build
+  script:
+    - echo dev test   

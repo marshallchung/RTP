@@ -29,8 +29,10 @@ class DashboardController extends Controller
      */
     public function index(NewsRepositoryInterface $newsRepo, UploadRepositoryInterface $uploadRepo)
     {
+       
         $user = auth()->user();
         if ($user->hasPermission('admin-permissions') || $user->hasPermission('NFA-permissions') || $user->hasPermission('County-permissions')) {
+            
             extract(self::reportData($user));
             return view('admin.dashboard.report', compact('report_public_dates', 'report_data', 'plan_data', 'presentation_data', 'sample_report_data', 'seasonal_report_2_data', 'seasonal_report_3_data', 'questionnaire_data', 'dc_unit_expire_data', 'dc_unit_soon_expire_data', 'dp_advance_expire_data', 'dp_advance_soon_expire_data', 'user', 'DP_student_valid_year'));
         } else {
@@ -182,6 +184,33 @@ class DashboardController extends Controller
             $dp_advance_soon_expire_data = $dp_advance_soon_expire_data->toArray();
         }
         $DP_student_valid_year = DpAdvancedStudentController::DP_STUDENT_VALID_YEAR;
+
+        // 1. 定義所有 Blade 中會用到的 date_type
+        $default_date_keys = ['reports', 'plan', 'presentation', 'seasonal0', 'seasonal1', 'seasonal2', 'sample'];
+            
+        foreach ($default_date_keys as $key) {
+            if (!isset($report_public_dates[$key])) {
+                // 給予空值或預設文字，確保 Blade 的 array_key_exists 判斷不會失敗
+                $report_public_dates[$key] = [
+                    'c_expire_date' => '未設定',
+                    'expire_soon_date' => '1900-01-01', // 設為過去時間，讓「即將逾期」判斷失效
+                    'expire_date' => '1900-01-01',
+                ];
+            }
+        }
+        
+        // 2. 確保資料陣列至少是空陣列而非 null
+        $report_data = $report_data ?: [];
+        $plan_data = $plan_data ?: [];
+        $presentation_data = $presentation_data ?: [];
+        $sample_report_data = $sample_report_data ?: [];
+        $seasonal_report_2_data = $seasonal_report_2_data ?: [];
+        $seasonal_report_3_data = $seasonal_report_3_data ?: [];
+        $questionnaire_data = $questionnaire_data ?: [];
+        $dc_unit_expire_data = $dc_unit_expire_data ?: [];
+        $dc_unit_soon_expire_data = $dc_unit_soon_expire_data ?: [];
+        $dp_advance_expire_data = $dp_advance_expire_data ?: [];
+        $dp_advance_soon_expire_data = $dp_advance_soon_expire_data ?: [];
         return compact('report_public_dates', 'report_data', 'plan_data', 'presentation_data', 'sample_report_data', 'seasonal_report_2_data', 'seasonal_report_3_data', 'questionnaire_data', 'dc_unit_expire_data', 'dc_unit_soon_expire_data', 'dp_advance_expire_data', 'dp_advance_soon_expire_data', 'DP_student_valid_year');
     }
 
